@@ -1,0 +1,77 @@
+/*Documentation
+ * AUTHOR:Isaac Haas
+ * COURSE:CPT187
+ * PURPOSE:Provides details about writing orders, including what to print and what item is being written.
+ * CREATE DATE:9/30/2021
+ */
+package edu.cpt187.haas.exercise6;
+
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+//Start of class WriteOrder
+public class WriteOrder 
+{
+	//Declare and initialize all class attributes
+	private boolean fileFoundFlag = false; //File found flag
+	private String masterFileName = ""; //Master file name
+	private int recordCount = 0; //Record count
+
+
+	//Constructor
+
+	//Non default constructor
+	public WriteOrder(String borrowedFileName)
+	{
+		//Assigns borrowedFileName to masterFileName
+		masterFileName = borrowedFileName;
+	}//End of non default constructor
+
+	//Setters
+
+	//Setter to set write order
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		//Try block
+		try
+		{
+			//Instantiation for filePW
+			PrintWriter filePW = new PrintWriter (new FileWriter(masterFileName, true)); 
+			//Field processor
+			filePW.printf("%n%d\t%s\t%f\t%d\t%f", borrowedItemID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost);
+			//Set flag to found
+			fileFoundFlag = true;
+			//Increments recordCount
+			recordCount++;
+			//Closes file
+			filePW.close();
+		}//End of try block
+		//Catch block
+		catch (IOException ex)
+		{
+			//Set file found flag to false
+			fileFoundFlag = false;
+		}//End of catch block
+	}//End of setter to set write order
+
+	//Getters
+
+	//Getter to return file found flag
+	public boolean getFileFoundFlag()
+	{
+		return fileFoundFlag; //Returns file found flag
+	}//End of getter to return file found flag
+
+	//Getter to return file name
+	public String getFileName()
+	{
+		return masterFileName; //Returns file name
+	}//End of getter to return file name
+
+	//Getter to return record count
+	public int getRecordCount()
+	{
+		return recordCount; //Returns record count
+	}//End of getter to return record count
+}//End of WriteOrder
